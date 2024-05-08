@@ -13,6 +13,7 @@ interface BlogCardProps {
   created: string; // Modify the type to string for consistency
   like: number;
   dislike: number;
+  
 }
 
 export const BlogCard = ({

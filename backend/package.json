@@ -7,11 +7,15 @@
     "@bidve1/blogcraft-common": "^1.0.6",
     "@prisma/client": "^5.13.0",
     "@prisma/extension-accelerate": "^1.0.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "hono": "^4.3.1",
     "prisma": "^5.13.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240403.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.12.10",
     "wrangler": "^3.47.0"
   }
 }

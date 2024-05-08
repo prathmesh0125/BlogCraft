@@ -8,7 +8,9 @@ export interface Blog {
     "title": string;
     "id": string
     "author": {
-        "name": string
+        "name": string,
+        "aboutuser":string
+        
     }
     "createdAt":"MMMM dd, yyyy",
     "likes":number,

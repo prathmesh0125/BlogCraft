@@ -3,13 +3,16 @@ export declare const signupInput: zod.ZodObject<{
     email: zod.ZodString;
     password: zod.ZodString;
     name: zod.ZodOptional<zod.ZodString>;
+    aboutuser: zod.ZodString;
 }, "strip", zod.ZodTypeAny, {
     email: string;
     password: string;
+    aboutuser: string;
     name?: string | undefined;
 }, {
     email: string;
     password: string;
+    aboutuser: string;
     name?: string | undefined;
 }>;
 export type SignupInput = zod.infer<typeof signupInput>;

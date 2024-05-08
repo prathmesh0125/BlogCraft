@@ -4,6 +4,7 @@ export const signupInput = zod.object({
   email: zod.string().email(),
   password: zod.string().min(6),
   name: zod.string().optional(),
+  aboutuser:zod.string()
 });
 // type intrface in zod
 export type SignupInput = zod.infer<typeof signupInput>;

@@ -97,8 +97,7 @@ const FullBlog = ({ post }: { post: Blog }) => {
                   {post.author.name || "Anonymous"}
                 </div>
                 <div className="pt-2 text-slate-500">
-                  Random catch phrase about the author's ability to grab user
-                  attraction
+                 {post.author.aboutuser || "Random catch phrase about the author's ability to grab use"}
                 </div>
               </div>
             </div>

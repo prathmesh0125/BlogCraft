@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
 import { signupInput, signinInput } from "@bidve1/blogcraft-common";
+// import { bcryptjs }from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 export const userRouter = new Hono<{
     Bindings: {
@@ -12,77 +14,106 @@ export const userRouter = new Hono<{
 }>();
 
 userRouter.post('/signup', async (c) => {
-    const body = await c.req.json();
-    const { success } = signupInput.safeParse(body);
-    if (!success) {
-        c.status(411);
-        return c.json({
-            message: "Inputs not correct"
-        })
-    }
-    const prisma = new PrismaClient({
-      datasourceUrl: c.env?.DATABASE_URL,
-    }).$extends(withAccelerate())
-  
-    try {
-      const user = await prisma.user.create({
-        data: {
-          email: body.email,
-          password: body.password,
-          name: body.name
-        }
-      })
-      const jwt = await sign({
-        id: user.id
-      }, c.env.JWT_SECRET);
-  
-      return c.text(jwt)
-    } catch(e) {
-      console.log(e);
+  const body = await c.req.json();
+  const { success, data } = signupInput.safeParse(body);
+  if (!success) {
       c.status(411);
-      return c.text('Invalid')
-    }
-  })
+      return c.json({
+          message: "Inputs not correct"
+      });
+  }
+
+  const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(body.password, 10);
+
+      // Create user with hashed password
+      const user = await prisma.user.create({
+          data: {
+              email: body.email,
+              password: hashedPassword,
+              name: body.name,
+              aboutuser:body.aboutuser
+          }
+      });
+
+      // Generate JWT token
+      const jwt = await sign({
+          id: user.id
+      }, c.env.JWT_SECRET);
+
+      // Respond with JWT token
+      return c.text(jwt);
+  } catch (e) {
+      console.error('Error creating user:', e);
+      c.status(411);
+      return c.text('Invalid');
+  } finally {
+      await prisma.$disconnect(); // Disconnect Prisma client after operation
+  }
+});
   
   
-  userRouter.post('/signin', async (c) => {
-    const body = await c.req.json();
-    const { success } = signinInput.safeParse(body);
-    if (!success) {
-        c.status(411);
-        return c.json({
-            message: "Inputs not correct"
-        })
+userRouter.post('/signin', async (c) => {
+  const body = await c.req.json();
+  const { success } = signinInput.safeParse(body);
+  if (!success) {
+      c.status(411);
+      return c.json({
+          message: "Inputs not correct"
+      });
+  }
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    // Find user by email
+    const user = await prisma.user.findFirst({
+      where: {
+        email: body.email,
+      }
+    });
+
+    // If user not found, return error
+    if (!user) {
+      c.status(403);
+      return c.json({
+        message: "Incorrect credentials"
+      });
     }
 
-    const prisma = new PrismaClient({
-      datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
-  
-    try {
-      const user = await prisma.user.findFirst({
-        where: {
-          email: body.email,
-          password: body.password,
-        }
-      })
-      if (!user) {
-        c.status(403);
-        return c.json({
-          message: "Incorrect creds"
-        })
-      }
-      const jwt = await sign({
-        id: user.id
-      }, c.env.JWT_SECRET);
-  
-      return c.text(jwt)
-    } catch(e) {
-      console.log(e);
-      c.status(411);
-      return c.text('Invalid')
+    // Compare hashed password with provided password
+    const passwordMatch = await bcrypt.compare(body.password, user.password);
+
+    // If passwords don't match, return error
+    if (!passwordMatch) {
+      c.status(403);
+      return c.json({
+        message: "Incorrect credentials"
+      });
     }
-  })
+
+    // Generate JWT token
+    const jwt = await sign({
+      id: user.id
+    }, c.env.JWT_SECRET);
+
+    // Respond with JWT token
+    return c.text(jwt);
+  } catch (e) {
+    console.error('Signin error:', e);
+    c.status(411);
+    return c.text('Invalid');
+  } finally {
+    await prisma.$disconnect(); // Disconnect Prisma client after operation
+  }
+});
   userRouter.post("/signout", async (c) => {
     try {
       // Extract the token from the Authorization header
