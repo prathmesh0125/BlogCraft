@@ -1,8 +1,5 @@
-import { Avatar } from "./BlogCard"
-// import { Link } from "react-router-dom"
 import axios from "axios";
 import { useState } from "react";
-// import { Avatar } from "./Postcard";
 import { ImBlog } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
