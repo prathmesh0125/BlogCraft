@@ -30,9 +30,9 @@ This project is a modern and efficient blogging website developed using a combin
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/blogging-website.git`
-2. Install dependencies: `cd blogging-website && npm install`
-3. Start the development server: `npm start`
+1. Clone the repository: `git clone https://github.com/prathmesh0125/BlogCraft.git`
+2. Install dependencies: `cd frontend & cd backend && npm install`
+3. Start the development server: `npm run dev`
 
 ## Usage
 
