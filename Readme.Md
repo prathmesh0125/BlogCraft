@@ -1,6 +1,6 @@
 # Blogging Website Project
 
-![Project Image](project_image.png) <!-- Include an image of your project if available -->
+
 
 ## Overview
 
@@ -47,4 +47,4 @@ Contributions are welcome! Feel free to fork the repository and submit pull requ
 
 ## Contact
 
-For any inquiries or feedback, please contact [Your Name](mailto:bidveprathmesh590@gmail.com).
+For any inquiries or feedback, please contact [Prathmesh bidve](mailto:bidveprathmesh590@gmail.com).
