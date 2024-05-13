@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { sign } from 'hono/jwt'
+import { sign, verify } from 'hono/jwt'
 import { signupInput, signinInput } from "@bidve1/blogcraft-common";
 // import { bcryptjs }from "bcryptjs";
 import bcrypt from "bcryptjs";
@@ -133,36 +133,46 @@ userRouter.post('/signin', async (c) => {
       return c.status(500).json({ message: "Internal server error" });
     }
   });
-
   userRouter.get('/profile', async (c) => {
     try {
-      // @ts-ignore
-      const userId = c.get("userId");
+      // Extract JWT token from request headers
+      const token = c.req.header("Authorization");
+  
+      if (!token) {
+        // Return error if token is missing
+        c.status(401);
+        return c.json({ message: 'Authorization token is missing' });
+      }
+  
+      // Verify and decode JWT token
+      const { id: userId } = await verify(token, c.env.JWT_SECRET);
   
       const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
   
-      // Find user by ID
+      // Fetch user's name
       const user = await prisma.user.findUnique({
         where: {
           id: userId,
         },
-        include: {
-          posts: true, // Include posts associated with the user
+        select: {
+          name: true,
         },
       });
   
-      if (!user) {
-        c.status(404);
-        return c.json({ message: 'User not found' });
-      }
+      // Fetch user's posts
+      const userPosts = await prisma.post.findMany({
+        where: {
+          authorId: userId,
+        },
+      });
   
-      return c.json({ user });
+      // Respond with user's name and posts
+      return c.json({ user: user, posts: userPosts });
     } catch (error) {
-      console.error('Error fetching user profile:', error);
+      console.error('Profile fetch error:', error);
       c.status(500);
       return c.json({ message: 'Internal server error' });
-    } 
-  });
-  
+    }
+  })

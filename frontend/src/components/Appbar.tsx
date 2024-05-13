@@ -117,6 +117,13 @@ function Avatardropdown({
           >
            {loading?"loading": "Sign out"}
           </Link>
+          <Link
+            to={"/profile"}
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  dark:text-gray-800 "
+            // onClick={sendSignoutRequest}
+          >
+           {loading?"loading": "Profile"}
+          </Link>
         </div>
       )}
     </div>
