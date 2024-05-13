@@ -133,3 +133,36 @@ userRouter.post('/signin', async (c) => {
       return c.status(500).json({ message: "Internal server error" });
     }
   });
+
+  userRouter.get('/profile', async (c) => {
+    try {
+      // @ts-ignore
+      const userId = c.get("userId");
+  
+      const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+      }).$extends(withAccelerate());
+  
+      // Find user by ID
+      const user = await prisma.user.findUnique({
+        where: {
+          id: userId,
+        },
+        include: {
+          posts: true, // Include posts associated with the user
+        },
+      });
+  
+      if (!user) {
+        c.status(404);
+        return c.json({ message: 'User not found' });
+      }
+  
+      return c.json({ user });
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      c.status(500);
+      return c.json({ message: 'Internal server error' });
+    } 
+  });
+  
