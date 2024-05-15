@@ -158,6 +158,7 @@ userRouter.post('/signin', async (c) => {
         },
         select: {
           name: true,
+          aboutuser:true
         },
       });
   
