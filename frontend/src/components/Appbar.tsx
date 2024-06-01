@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImBlog } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../config";
+import { jwtDecode } from "jwt-decode";
 
 export const Appbar = () => {
     const [isAnimating, setIsAnimating] = useState(false);
@@ -14,6 +15,20 @@ export const Appbar = () => {
       setIsAnimating(false);
     }, 1000); // Adjust the duration as needed to match your animation
   };
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<{ username: string }>(token);
+        setUsername(decodedToken.username);
+      } catch (error) {
+        console.error("Failed to decode token", error);
+      }
+    }
+  }, []);
+
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b flex justify-between  px-4 py-1">
@@ -37,7 +52,7 @@ export const Appbar = () => {
             New
           </button>
         </Link>
-        <Avatardropdown size={"big"} name="Anoynmous" />
+        <Avatardropdown size={"big"} name={username||"Anoynmous"} />
         </div>
     </div>
   )

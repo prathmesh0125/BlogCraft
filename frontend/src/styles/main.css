@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+* {
+  font-family: 'Poppins';
+  font-weight: 500;
+}
+
+
+
+
+.result::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as needed */
+  background-color: transparent;
+}
+
+.result::-webkit-scrollbar-thumb {
+  background: rgb(81, 81, 83);
+  border-radius: 10%;
+}
+.result-title {
+  margin: 22px 0px 32px 0px;
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  line-height: 3rem;
+  padding: 5px;
+  background-color: #e7ebf0;
+}
+.result img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  mix-blend-mode: darken;
+}
+.result-data {
+  margin-top: -1rem;
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  padding: 14px;
+  background-color: #f9fafa30;
+  font-family: "Roboto Slab", serif;
+
+}
+.loader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.loader hr {
+  border-radius: 4px;
+  border: none;
+  height: 20px;
+}
+
+.loader hr:nth-child(1) {
+  background: linear-gradient(to right, #85c1e9, #ffffff, #85c1e9);
+  animation: loader1 5s infinite linear;
+}
+
+.loader hr:nth-child(2) {
+  background: linear-gradient(to right, #ffffff, #85c1e9, #ffffff);
+  animation: loader2 7s infinite linear;
+}
+
+.loader hr:nth-child(3) {
+  background: linear-gradient(to right, #ffffff, #ffffff, #85c1e9);
+  animation: loader3 9s infinite linear;
+}
+
+@keyframes loader1 {
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 0px;
+  }
+}
+
+@keyframes loader2 {
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 0px;
+  }
+}
+
+@keyframes loader3 {
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 0px;
+  }
+}
+
+.result-data p {
+  position: relative;
+  left: -3.4rem;
+  top: 0.5rem;
+  font-size: 16px;
+  font-weight: 300px;
+  line-height: 2;
+  color: black;
+  font-family: "Roboto Slab", serif;
+
+}
+.result-data p>ol {
+ 
+ font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 700px) {
+  .main .card p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main .cards {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 26px;
+    padding: 0px 55px;
+  }
+  .main .card p {
+    font-size: 17px;
+    line-height: normal;
+  }
+  .greet p {
+    font-size: 2rem;
+  }
+  .main .greet {
+    margin: 31px 19px;
+    font-size: 59px;
+    color: #c4c7c5;
+    font-weight: 500;
+    padding: 15px;
+  }
+}
+
+.Main-page {
+  margin-top: -3rem;
+  margin-bottom: -3rem;
+}
+
+.graph-container {
+  height: 13rem;
+}
+
+.related-questions-container {
+  max-width: 100%;
+  /* overflow-x: auto; */
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section h2 {
+  /* margin-top: 0; */
+  padding: 1.05rem 1rem;
+}
+
+.table-section h2 {
+  margin-bottom: -1.4rem;
+}
+
+
+.rel-question{
+  animation:relanime 3s;
+
+}
+@keyframes relanime{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.rotate {
+  position: relative; /* Ensure absolute positioning works relative to this */
+  animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate:after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 95, 95, 0) 0%, rgba(245, 95, 95, 0) 30%, rgba(245, 95, 95, 0.5) 80%, rgba(245, 95, 95, 0) 100%);
+  animation: spread 2s infinite linear;
+
+}
+
+@keyframes spread {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+.card {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.card.animated {
+  opacity: 1;
+}

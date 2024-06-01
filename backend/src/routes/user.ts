@@ -43,7 +43,9 @@ userRouter.post('/signup', async (c) => {
 
       // Generate JWT token
       const jwt = await sign({
-          id: user.id
+          id: user.id,
+          username: user.name
+          
       }, c.env.JWT_SECRET);
 
       // Respond with JWT token
@@ -101,7 +103,8 @@ userRouter.post('/signin', async (c) => {
 
     // Generate JWT token
     const jwt = await sign({
-      id: user.id
+      id: user.id,
+      username: user.name
     }, c.env.JWT_SECRET);
 
     // Respond with JWT token
