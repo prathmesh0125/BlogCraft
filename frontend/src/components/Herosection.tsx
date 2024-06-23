@@ -12,7 +12,7 @@ const Herosection = () => {
         <div className="max-w-4xl w-full space-y-8 text-center">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold w-full tracking-tight text-gray-900  sm:text-5xl md:text-6xl">
-              Discover the Art of Storytelling
+              Discover the Art of Storytelling prathmesh
             </h1>
             <p className="text-lg text-gray-600  md:text-xl">
               Immerse yourself in a world of captivating narratives, where words come alive and inspire the soul.
