@@ -1,10 +1,5 @@
 # Blogging Website Project
-# demo
 
-![Project Screenshot](frontend/src/assets/landingPage.png)
-![Project Screenshot](frontend/src/assets/login.png)
-![Project Screenshot](frontend/src/assets/feed.png)
-![Project Screenshot](frontend/src/assets/profile.png)
 
 ## Overview
 
@@ -24,6 +19,13 @@ This project is a modern and efficient blogging website developed using a combin
 - **Efficient Data Management:** Prisma ORM with PostgreSQL ensures efficient handling and scalability of blog content.
 - **Type Safety:** TypeScript enhances code quality and maintainability by providing robust type safety.
 - **Modern UI:** React frontend ensures a modern and responsive user interface.
+
+# demo
+
+![Project Screenshot](frontend/src/assets/landingPage.png)
+![Project Screenshot](frontend/src/assets/login.png)
+![Project Screenshot](frontend/src/assets/feed.png)
+![Project Screenshot](frontend/src/assets/profile.png)
 
 ## Getting Started
 
