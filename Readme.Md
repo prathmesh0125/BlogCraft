@@ -1,7 +1,10 @@
 # Blogging Website Project
 # demo
 
+![Project Screenshot](frontend/src/assets/landingPage.png)
 ![Project Screenshot](frontend/src/assets/login.png)
+![Project Screenshot](frontend/src/assets/feed.png)
+![Project Screenshot](frontend/src/assets/profile.png)
 
 ## Overview
 
