@@ -13,6 +13,7 @@ export interface Blog {
   createdAt: "MMMM dd, yyyy";
   likes: number;
   dislikes: number;
+  imageUrl:string
 }
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(true);

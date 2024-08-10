@@ -180,3 +180,47 @@ userRouter.post('/signin', async (c) => {
       return c.json({ message: 'Internal server error' });
     }
   })
+
+  userRouter.get('/top-users', async (c) => {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+  
+    try {
+      const topUsers = await prisma.user.findMany({
+        where: {
+          posts: {
+            some: {}, // Ensure the user has at least one post
+          },
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          // createdAt: true,
+          aboutuser: true,
+          _count: {
+            select: {
+              posts: true,
+            },
+          },
+        },
+        orderBy: {
+          posts: {
+            _count: 'desc', // Order by the number of posts in descending order
+          },
+        },
+        take: 5, // Limit to top 5 users
+      });
+  
+      return c.json(topUsers);
+    } catch (error) {
+      console.error('Error fetching top users:', error);
+      c.status(500);
+      return c.json({ message: 'An error occurred while fetching top users' });
+    } finally {
+      await prisma.$disconnect();
+    }
+  });
+  
+  

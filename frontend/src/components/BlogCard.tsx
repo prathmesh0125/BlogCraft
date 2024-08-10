@@ -13,7 +13,7 @@ interface BlogCardProps {
   created: string; // Modify the type to string for consistency
   like: number;
   dislike: number;
-  
+  imageUrl: string;
 }
 
 export const BlogCard = ({
@@ -24,25 +24,39 @@ export const BlogCard = ({
   created,
   like,
   dislike,
+  imageUrl,
 }: BlogCardProps) => {
-  const formattedCreatedAt = format(new Date(Date.parse(created)), "MMMM dd, yyyy");
+  const formattedCreatedAt = format(
+    new Date(Date.parse(created)),
+    "MMMM dd, yyyy"
+  );
   return (
-
-    <div className="border-b p-4 border-slate-700 pb-4 max-w-screen-md w-[18rem] sm:min-w-[30rem] md:min-w-[50rem] cursor-pointer mt-4">
-      <div className="flex items-center">
+    <div className="border-b p-4 border-slate-700 pb-4  w-fit  md:w-[50rem] cursor-pointer mt-4">
+      <div className="flex  ">
         {/* Avatar component */}
         <Avatar name={author} />
-        <div className="font-extralight pl-2">{author}</div>
+        <div className="font-extralight pl-2">{author} </div>
         <span className="pl-1">.</span>
       </div>
-      <div className="text-xl font-bold pt-2">{title}</div>
-      <div>
-        <div className="text-md font-semibold inline ">
-          {content.slice(0, 250) + "..."}{" "}
-          <Link to={`/blog/${id}`}>
-            <span className="text-blue-600 underline">Read more</span>
-          </Link>
+      <div className="flex justify-between flex-col md:flex-row">
+        <div>
+          <div className="text-xl font-bold pt-2">{title}</div>
+
+          <div className="text-md font-serif inline text-gray-00  ">
+            <div className="flex justify-between">
+              <p className="w-92">{content.slice(0, 250) + "..."}</p>
+            </div>
+            <Link to={`/blog/${id}`}>
+              <span className="text-blue-600 underline">Read more</span>
+            </Link>
+            {/* mix-blend-mode: difference; */}
+          </div>
         </div>
+        <img
+          className="  md:h-48 object-cover"
+          style={{ mixBlendMode: "difference" }}
+          src={imageUrl || "logo.png"}
+        />
       </div>
 
       <div className="flex items-center justify-between text-sm mt-4 text-gray-500 dark:text-gray-400">

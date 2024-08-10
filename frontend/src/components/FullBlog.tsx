@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Blog } from "../hooks";
-import {Appbar} from "./Appbar";
+import { Appbar } from "./Appbar";
 import { Avatar } from "./BlogCard";
 import { format } from "date-fns";
 import { BiCalendar, BiShare } from "react-icons/bi";
@@ -9,6 +9,7 @@ import { HiOutlineClock } from "react-icons/hi";
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 // import { HiSpeakerWave } from "react-icons/hi2";
 import { BACKEND_URL } from "../config";
+import { MdDelete } from "react-icons/md";
 
 const FullBlog = ({ post }: { post: Blog }) => {
   const [likeCount, setLikeCount] = useState(post.likes);
@@ -50,40 +51,55 @@ const FullBlog = ({ post }: { post: Blog }) => {
           <div className="col-span-8 max-w-screen-md">
             <div className="text-3xl font-extrabold">{post.title}</div>
             <div className="text-slate-500 pt-4">{formattedCreatedAt}</div>
-            <div className="text-1xl font-semibold pt-2">{post.content}</div>
-         
-          <div className="flex items-center justify-between text-sm mt-4 text-gray-500 dark:text-gray-400">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                <BiCalendar className="h-4 w-4" />
-                <span> {formattedCreatedAt}</span>
-              </div>
-              <span className="pl-0">.</span>
-
-              <div className="flex items-center gap-1">
-                <HiOutlineClock className="h-4 w-4" />
-                <span>{`${Math.ceil(
-                  post.content.length / 100
-                )} minutes read`}</span>
-              </div>
+              <img src={post.imageUrl|| "logo.png"} alt="" />
+            <div className="text-1xl font-semibold pt-2">
+              {post.content.split("\n").map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                <FaRegThumbsUp  onClick={handleLike}
- style={{ color: liked ? "gray" : "red", cursor: liked ? "not-allowed" : "pointer" }} className="h-4 w-4" />
-                <span>{likeCount}</span>
+            <div className="flex items-center justify-between text-sm mt-4 text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <BiCalendar className="h-4 w-4" />
+                  <span> {formattedCreatedAt}</span>
+                </div>
+                <span className="pl-0">.</span>
+
+                <div className="flex items-center gap-1">
+                  <HiOutlineClock className="h-4 w-4" />
+                  <span>{`${Math.ceil(
+                    post.content.length / 100
+                  )} minutes read`}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1">
-                <FaRegThumbsDown className="h-4 w-4" />
-                <span>{post.dislikes}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <BiShare className="h-4 w-4" />
-                <span>Share</span>
+
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <FaRegThumbsUp
+                    onClick={handleLike}
+                    style={{
+                      color: liked ? "gray" : "red",
+                      cursor: liked ? "not-allowed" : "pointer",
+                    }}
+                    className="h-4 w-4"
+                  />
+                  <span>{likeCount}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <FaRegThumbsDown className="h-4 w-4" />
+                  <span>{post.dislikes}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <BiShare className="h-4 w-4" />
+                  <span>Share</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <MdDelete className="h-4 w-4" />
+                  <span>Delete</span>
+                </div>
               </div>
             </div>
-          </div>
           </div>
 
           <div className="col-span-4">
@@ -97,7 +113,8 @@ const FullBlog = ({ post }: { post: Blog }) => {
                   {post.author.name || "Anonymous"}
                 </div>
                 <div className="pt-2 text-slate-500">
-                 {post.author.aboutuser || "Random catch phrase about the author's ability to grab use"}
+                  {post.author.aboutuser ||
+                    "Random catch phrase about the author's ability to grab use"}
                 </div>
               </div>
             </div>

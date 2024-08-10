@@ -12,7 +12,7 @@ const Herosection = () => {
         <div className="max-w-4xl w-full space-y-8 text-center">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold w-full tracking-tight text-gray-900  sm:text-5xl md:text-6xl">
-              Discover the Art of Storytelling prathmesh  
+              Discover the Art of Storytelling  
             </h1>
             <p className="text-lg text-gray-600  md:text-xl">
               Immerse yourself in a world of captivating narratives, where words come alive and inspire the soul.
@@ -25,19 +25,19 @@ const Herosection = () => {
             
           </div>
           <div className="grid grid-cols-1 m-auto md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white  rounded-lg shadow-md p-6 text-left">
+            <div className="bg-white  rounded-lg shadow-md p-6 text-left hover:scale-105 ">
               <h3 className="text-xl font-bold mb-2">Captivating Narratives</h3>
               <p className="text-gray-600">
                 Discover stories that ignite your imagination and touch your heart.
               </p>
             </div>
-            <div className="bg-white  rounded-lg shadow-md p-6 text-left">
+            <div className="bg-white  rounded-lg shadow-md p-6 text-left hover:scale-105">
               <h3 className="text-xl font-bold mb-2">Inspiring Perspectives</h3>
               <p className="text-gray-600 ">
                 Explore diverse voices and gain new insights that challenge and empower you.
               </p>
             </div>
-            <div className="bg-white   rounded-lg shadow-md p-6 text-left">
+            <div className="bg-white   rounded-lg shadow-md p-6 text-left hover:scale-105">
               <h3 className="text-xl font-bold mb-2">Timeless Wisdom</h3>
               <p className="text-gray-600  ">
                 Uncover timeless lessons that inspire personal growth and transformation.
