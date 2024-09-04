@@ -3,7 +3,7 @@ import runChat from "../component/../AI/gemini";
 import { useState, useEffect } from "react"; // Import useEffect hook
 // @ts-ignore
 export const Context = createContext();
-const ContextProvider = (props:any) => {
+const ContextProvider = (props: any) => {
   const [input, setInput] = useState("");
   const [recentPrompt, setRecentPrompt] = useState("");
   const [prevoisPrompt, setPrevoisPrompt] = useState([]);
@@ -12,7 +12,7 @@ const ContextProvider = (props:any) => {
   const [resultData, setResultData] = useState("");
   const [renderComplete, setRenderComplete] = useState(false); // New state to track rendering completion
 
-  const delayPara = (formattedResponse:any) => {
+  const delayPara = (formattedResponse: any) => {
     const words = formattedResponse.split(/\s+/);
     for (let i = 0; i < words.length; i++) {
       const nextword = words[i];
@@ -40,7 +40,7 @@ const ContextProvider = (props:any) => {
     setLoading(false);
     setShowResult(false);
   };
-  const onSent = async (prompt:any) => {
+  const onSent = async (prompt: any) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
@@ -50,7 +50,9 @@ const ContextProvider = (props:any) => {
     // let question = await runChat(`give me 3 related question of ${prompt}`);
     // console.log(question);
     if (prompt !== undefined) {
-      response = await runChat(`genrate blog with title and content for this ${prompt}`);
+      response = await runChat(
+        `genrate blog with title and content for this ${prompt}`
+      );
       // @ts-ignore
       setPrevoisPrompt((prev) => [...prev, prompt]);
       setRenderComplete(false);
@@ -62,7 +64,9 @@ const ContextProvider = (props:any) => {
 
       setPrevoisPrompt((prev) => [...prev, input]);
       setRecentPrompt(input);
-      response = await runChat(`genrate blog with title and content for this ${prompt}`);
+      response = await runChat(
+        `genrate blog with title and content for this ${prompt}`
+      );
     }
 
     // Format response for rendering
@@ -100,7 +104,6 @@ const ContextProvider = (props:any) => {
     newChat,
     defaultPromt,
     renderComplete, // Provide renderComplete to consumers
-   
   };
   return (
     <Context.Provider value={contextValue}>{props.children}</Context.Provider>
